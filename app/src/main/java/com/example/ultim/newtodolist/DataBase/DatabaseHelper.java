@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "userstore.db"; // название бд
+    private static final String DATABASE_NAME = "todo_st.db"; // название бд
     private static final int SCHEMA = 1; // версия базы данных
     static final String TABLE = "todo"; // название таблицы в бд
     // названия столбцов
@@ -35,8 +35,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_PRIORITY + " TEXT, "
                 + COLUMN_IS_DONE + " INTEGER);");
         // добавление начальных данных
-        //db.execSQL("INSERT INTO "+ TABLE +" (" + COLUMN_NAME
-      //          + ", " + COLUMN_YEAR  + ") VALUES ('Том Смит', 1981);");
+        db.execSQL("INSERT INTO "+ TABLE
+                +" (" + COLUMN_TITLE
+               + ", " + COLUMN_TEXT
+                + ", " + COLUMN_DATE
+                + ", " + COLUMN_PRIORITY
+                + ", " + COLUMN_IS_DONE
+                +  ")  VALUES ('Том Смит', 'Текст', 1865, 'good', 0);");
     }
 
     @Override

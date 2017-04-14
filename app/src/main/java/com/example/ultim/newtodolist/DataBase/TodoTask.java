@@ -10,7 +10,7 @@ public class TodoTask {
     private String text;
     private int date;
     private String priority;
-    private boolean isDone;
+    private int isDone;
 
     public TodoTask(long id, String title, String text, int date, String priority, int isDone) {
         this.id = id;
@@ -41,7 +41,7 @@ public class TodoTask {
         return priority;
     }
 
-    public boolean isDone() {
+    public int isDone() {
         return isDone;
     }
 

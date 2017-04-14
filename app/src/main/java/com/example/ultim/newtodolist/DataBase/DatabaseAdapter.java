@@ -33,7 +33,7 @@ public class DatabaseAdapter {
     }
 
     private Cursor getAllEntries(){
-        String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_TEXT, DatabaseHelper.COLUMN_TEXT,
+        String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_TITLE, DatabaseHelper.COLUMN_TEXT,
                 DatabaseHelper.COLUMN_DATE, DatabaseHelper.COLUMN_PRIORITY, DatabaseHelper.COLUMN_IS_DONE};
         return database.query(DatabaseHelper.TABLE, columns, null, null, null, null, null);
     }
