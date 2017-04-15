@@ -38,7 +38,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
         TextView mTextText;
         TextView mTextTitle;
         TextView mTextDate;
-        TextView buttonViewOption;
         CardView cardView1;
 
         public ViewHolder1(View itemView) {
@@ -46,7 +45,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
             mTextText = (TextView) itemView.findViewById(R.id.info_text);
             mTextTitle = (TextView) itemView.findViewById(R.id.title_text);
             mTextDate = (TextView) itemView.findViewById(R.id.date_text);
-            buttonViewOption = (TextView) itemView.findViewById(R.id.textViewOptions);
             cardView1 = (CardView)itemView.findViewById(R.id.card_view);
         }
     }
@@ -107,28 +105,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                         notifyItemChanged(position);
                     }
                 });
-                ((ViewHolder1) holder).buttonViewOption.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        PopupMenu popupMenu = new PopupMenu(mContext, ((ViewHolder1) holder).buttonViewOption);
-                        popupMenu.inflate(R.menu.options_menu);
-                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.menuEdit:
-                                        //handle menu1 click
-                                        break;
-                                    case R.id.menuDelete:
-                                        //handle menu2 click
-                                        break;
-                                }
-                                return false;
-                            }
-                        });
-                        popupMenu.show();
-                    }
-                });
             }
             else {
                 ((ViewHolder2) holder).mTextTitle.setText(object.getTitle());
@@ -159,7 +135,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                     public void onClick(View v) {
                         Intent myIntent = new Intent(mContext, EditActivity.class);
                         myIntent.putExtra("id", object.getId());
-                       ///BUS EVENT NEED
                         mContext.startActivity(myIntent);
                         notifyItemChanged(position);
                     }
