@@ -13,8 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
-        card_view:cardCornerRadius="5dp"
-        card_view:cardElevation="5dp"
+        card_view:cardBackgroundColor="@color/cardview_shadow_end_color"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="2dp"
+        card_view:cardUseCompatPadding="true"
         card_view:contentPadding="10dp">
 
         <RelativeLayout
