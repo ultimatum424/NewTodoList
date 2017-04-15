@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
        //adapter.insert(new TodoTask(0, "Заголовок2", "Текса", "21 MAY 2016", 3, 0));
-        //adapter.delete(5);
         List<TodoTask> mTasks = adapter.getTodoTasks();
         adapter.close();
         mRecycleAdapter = new RecyclerAdapter(mTasks, this);
@@ -82,8 +81,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void add(View view){
-      //  Intent intent = new Intent(this, UserActivity.class);
-        //startActivity(intent);
-    }
 }

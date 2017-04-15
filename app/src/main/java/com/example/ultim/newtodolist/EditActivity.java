@@ -56,7 +56,8 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         mBtnSave.setOnClickListener(this);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra("ID", 0);
+        id = intent.getLongExtra("id", 0);
+        mCheckBoxIsDone.setVisibility(View.INVISIBLE);
         fillingTodo();
     }
 
@@ -109,15 +110,14 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
     void fillingTodo(){
         if (id != 0 ){
+            mCheckBoxIsDone.setVisibility(View.VISIBLE);
             DatabaseAdapter databaseAdapter = new DatabaseAdapter(this);
             databaseAdapter.open();
             TodoTask todoTask = databaseAdapter.getTodoTask(id);
             databaseAdapter.close();
             mEditTitle.setText(todoTask.getText());
             mEditText.setText(todoTask.getText());
-            String myFormat = "dd MMM yyyy"; //In which you need put here
-            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-            mEditDate.setText(sdf.format(todoTask.getDate()));
+            mEditDate.setText(todoTask.getDate());
             if (todoTask.isDone() == 0){
                 mCheckBoxIsDone.setChecked(false);
             }else {
@@ -136,11 +136,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 default:
                     break;
             }
-
         }
     }
     void saveChanges(){
-        int isDone = 0;
+        int isDone;
         if ( mCheckBoxIsDone.isChecked()){
             isDone = 1;
         }else{

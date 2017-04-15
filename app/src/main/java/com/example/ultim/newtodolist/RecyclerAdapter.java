@@ -1,6 +1,7 @@
 package com.example.ultim.newtodolist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
 import com.example.ultim.newtodolist.DataBase.TodoTask;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
     public static class ViewHolder1 extends RecyclerView.ViewHolder {
         TextView mTextText;
         TextView mTextTitle;
+        TextView mTextDate;
         TextView buttonViewOption;
         CardView cardView1;
 
@@ -41,6 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
             super(itemView);
             mTextText = (TextView) itemView.findViewById(R.id.info_text);
             mTextTitle = (TextView) itemView.findViewById(R.id.title_text);
+            mTextDate = (TextView) itemView.findViewById(R.id.date_text);
             buttonViewOption = (TextView) itemView.findViewById(R.id.textViewOptions);
             cardView1 = (CardView)itemView.findViewById(R.id.card_view);
         }
@@ -49,6 +54,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
     public static class ViewHolder2 extends RecyclerView.ViewHolder {
         TextView mTextText;
         TextView mTextTitle;
+        TextView mTextDate;
         Button mEditBtn;
         Button mDeleteBtn;
         CardView cardView2;
@@ -57,6 +63,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
             super(itemView);
             mTextText = (TextView) itemView.findViewById(R.id.info_text);
             mTextTitle = (TextView) itemView.findViewById(R.id.title_text);
+            mTextDate = (TextView) itemView.findViewById(R.id.date_text);
             mEditBtn = (Button) itemView.findViewById(R.id.button_edit);
             mDeleteBtn = (Button) itemView.findViewById(R.id.button_delete);
             cardView2 = (CardView) itemView.findViewById(R.id.card_view2);
@@ -92,6 +99,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
             if (mSelectPosition != position) {
                 ((ViewHolder1) holder).mTextTitle.setText(object.getTitle());
                 ((ViewHolder1) holder).mTextText.setText(object.getText());
+                ((ViewHolder1) holder).mTextDate.setText(object.getDate());
                 ((ViewHolder1) holder).cardView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,6 +133,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
             else {
                 ((ViewHolder2) holder).mTextTitle.setText(object.getTitle());
                 ((ViewHolder2) holder).mTextText.setText(object.getText());
+                ((ViewHolder2) holder).mTextDate.setText(object.getDate());
                 ((ViewHolder2) holder).cardView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -143,6 +152,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                         mListTask.remove(position);
                         notifyItemRemoved(position);
                         notifyDataSetChanged();
+                    }
+                });
+                ((ViewHolder2) holder).mEditBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(mContext, EditActivity.class);
+                        myIntent.putExtra("id", object.getId());
+                       ///BUS EVENT NEED
+                        mContext.startActivity(myIntent);
+                        notifyItemChanged(position);
                     }
                 });
 
