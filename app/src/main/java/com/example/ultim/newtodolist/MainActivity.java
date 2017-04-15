@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
-        //adapter.insert(new TodoTask(0, "Заголовок", "Текса", 21052016, "Высокий", 1));
-        adapter.delete(5);
+        //adapter.insert(new TodoTask(0, "Заголовок", "Текса", 21052016, "Высокий", 0));
+        //adapter.delete(5);
         List<TodoTask> mTasks = adapter.getTodoTasks();
         adapter.close();
         mAdapter = new RecyclerAdapter(mTasks, this);
