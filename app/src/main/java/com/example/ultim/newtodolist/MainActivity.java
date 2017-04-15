@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter mRecycleAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
-        //adapter.insert(new TodoTask(0, "Заголовок", "Текса", 21052016, "Высокий", 0));
+        adapter.insert(new TodoTask(0, "Заголовок2", "Текса", 21052016, "Высокий", 0));
         //adapter.delete(5);
         List<TodoTask> mTasks = adapter.getTodoTasks();
         adapter.close();
-        mAdapter = new RecyclerAdapter(mTasks, this);
-        mRecyclerView.setAdapter(mAdapter);
+        mRecycleAdapter = new RecyclerAdapter(mTasks, this);
+        mRecyclerView.setAdapter(mRecycleAdapter);
 
     }
 

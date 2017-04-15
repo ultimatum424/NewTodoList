@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
 import com.example.ultim.newtodolist.DataBase.TodoTask;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        TodoTask object = mListTask.get(position);
+        final TodoTask object = mListTask.get(position);
         if (object != null) {
             if (mSelectPosition != position) {
                 ((ViewHolder1) holder).mTextTitle.setText(object.getTitle());
@@ -129,6 +130,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                     public void onClick(View v) {
                         mSelectPosition = -1;
                         notifyItemChanged(position);
+                    }
+                });
+                ((ViewHolder2) holder).mDeleteBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseAdapter adapter = new DatabaseAdapter(mContext);
+                        adapter.open();
+                        adapter.delete(object.getId());
+                        adapter.close();
+                        mSelectPosition = -1;
+                        mListTask.remove(position);
+                        notifyItemRemoved(position);
                     }
                 });
 

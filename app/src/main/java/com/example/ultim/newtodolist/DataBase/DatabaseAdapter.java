@@ -38,7 +38,7 @@ public class DatabaseAdapter {
 
         String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_TITLE, DatabaseHelper.COLUMN_TEXT,
                 DatabaseHelper.COLUMN_DATE, DatabaseHelper.COLUMN_PRIORITY, DatabaseHelper.COLUMN_IS_DONE};
-        
+
         return database.query(DatabaseHelper.TABLE, columns, null, null, null, null, orderBy);
     }
 
