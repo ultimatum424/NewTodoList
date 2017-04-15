@@ -31,8 +31,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_TITLE + " TEXT, "
                 + COLUMN_TEXT + " TEXT, "
-                + COLUMN_DATE + " INTEGER, "
-                + COLUMN_PRIORITY + " TEXT, "
+                + COLUMN_DATE + " TEXT, "
+                + COLUMN_PRIORITY + " INTEGER, "
                 + COLUMN_IS_DONE + " INTEGER);");
         // добавление начальных данных
         db.execSQL("INSERT INTO "+ TABLE
@@ -41,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ", " + COLUMN_DATE
                 + ", " + COLUMN_PRIORITY
                 + ", " + COLUMN_IS_DONE
-                +  ")  VALUES ('Том Смит', 'Текст', 1865, 'good', 0);");
+                +  ")  VALUES ('Том Смит', 'Текст', 1865, '1', 0);");
     }
 
     @Override

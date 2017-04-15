@@ -27,7 +27,6 @@
                 android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Your Heading"
                 android:textAppearance="?android:textAppearanceLarge" />
 
             <TextView
@@ -35,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title_text"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi molestie nisi dui."
                 android:textAppearance="?android:textAppearanceMedium" />
 
             <TextView
@@ -43,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/info_text"
-                android:text="21 MAY 2016"
                 android:textAppearance="?android:textAppearanceMedium" />
 
             <TextView

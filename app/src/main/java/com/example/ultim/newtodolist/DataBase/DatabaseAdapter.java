@@ -50,8 +50,8 @@ public class DatabaseAdapter {
                 int id = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_ID));
                 String title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TITLE));
                 String text = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEXT));
-                int date = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
-                String priority = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_PRIORITY));
+                String date = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
+                int priority = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_PRIORITY));
                 int isDone = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_IS_DONE));
                 todoTasks.add(new TodoTask(id,title, text, date, priority, isDone));
             }
@@ -72,8 +72,8 @@ public class DatabaseAdapter {
         if (cursor.moveToFirst()){
             String title = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TITLE));
             String text = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_TEXT));
-            int date = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
-            String priority = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_PRIORITY));
+            String date = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
+            int priority = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_PRIORITY));
             int isDone = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_IS_DONE));
             todoTask = new TodoTask(id,title, text, date, priority, isDone);
         }

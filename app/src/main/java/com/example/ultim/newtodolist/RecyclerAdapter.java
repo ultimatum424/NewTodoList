@@ -129,7 +129,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                     @Override
                     public void onClick(View v) {
                         mSelectPosition = -1;
-                        notifyItemChanged(position);
+                        notifyDataSetChanged();
                     }
                 });
                 ((ViewHolder2) holder).mDeleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +142,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                         mSelectPosition = -1;
                         mListTask.remove(position);
                         notifyItemRemoved(position);
+                        notifyDataSetChanged();
                     }
                 });
 

@@ -8,11 +8,11 @@ public class TodoTask {
     private long id;
     private String title;
     private String text;
-    private int date;
-    private String priority;
+    private String date;
+    private int priority;
     private int isDone;
 
-    public TodoTask(long id, String title, String text, int date, String priority, int isDone) {
+    public TodoTask(long id, String title, String text, String date, int priority, int isDone) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -33,11 +33,11 @@ public class TodoTask {
         return text;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public String getPriority() {
+    public int getPriority() {
         return priority;
     }
 

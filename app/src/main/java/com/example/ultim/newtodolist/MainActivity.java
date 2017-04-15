@@ -1,5 +1,6 @@
 package com.example.ultim.newtodolist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -36,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent myIntent = new Intent(getBaseContext(), EditActivity.class);
+                myIntent.putExtra("ID", 0);
+                startActivityForResult(myIntent, 1);
             }
         });
 
@@ -71,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseAdapter adapter = new DatabaseAdapter(this);
         adapter.open();
-        adapter.insert(new TodoTask(0, "Заголовок2", "Текса", 21052016, "Высокий", 0));
+       //adapter.insert(new TodoTask(0, "Заголовок2", "Текса", "21 MAY 2016", 3, 0));
         //adapter.delete(5);
         List<TodoTask> mTasks = adapter.getTodoTasks();
         adapter.close();
