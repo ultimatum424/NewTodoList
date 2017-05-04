@@ -108,8 +108,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                 ((ViewHolder1) holder).cardView1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mSelectPosition = position;
-                        notifyItemChanged(position);
+                        DatabaseAdapter adapter = null;
+                        try {
+                            adapter = new DatabaseAdapter(mContext);
+                            adapter.open();
+                            mSelectPosition = position;
+                            mListTask = adapter.getTodoTasks();
+                            notifyDataSetChanged();
+                        } finally {
+                            if (adapter != null){
+                                adapter.close();
+                            }
+                        }
                     }
                 });
 
@@ -124,8 +134,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                             adapter.open();
                             TodoTask newObject = changeDone(object);
                             adapter.update(newObject);
-                            mListTask = adapter.getTodoTasks();
-                            notifyDataSetChanged();
+                            //mListTask = adapter.getTodoTasks();
+                            //notifyDataSetChanged();
                         } finally {
                             if (adapter != null){
                                 adapter.close();
@@ -142,8 +152,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                 ((ViewHolder2) holder).cardView2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mSelectPosition = -1;
-                        notifyDataSetChanged();
+                        DatabaseAdapter adapter = null;
+                        try {
+                            adapter = new DatabaseAdapter(mContext);
+                            adapter.open();
+                            mSelectPosition = -1;
+                            mListTask = adapter.getTodoTasks();
+                            notifyDataSetChanged();
+                        } finally {
+                            if (adapter != null){
+                                adapter.close();
+                            }
+                        }
                     }
                 });
                 ((ViewHolder2) holder).mDeleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -186,9 +206,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                             adapter.open();
                             TodoTask newObject = changeDone(object);
                             adapter.update(newObject);
-                            mListTask = adapter.getTodoTasks();
+                           // mListTask = adapter.getTodoTasks();
                             mSelectPosition = -1;
-                            notifyDataSetChanged();
+                            //notifyDataSetChanged();
                         } finally {
                             if (adapter != null){
                                 adapter.close();
