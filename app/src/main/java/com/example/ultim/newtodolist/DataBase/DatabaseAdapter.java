@@ -53,7 +53,7 @@ public class DatabaseAdapter {
                 String date = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
                 int priority = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_PRIORITY));
                 int isDone = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_IS_DONE));
-                todoTasks.add(new TodoTask(id,title, text, date, priority, isDone));
+                todoTasks.add(new TodoTask(id,title, text, date, PriorityEnum.fromInt(priority), isDone));
             }
             while (cursor.moveToNext());
         }
@@ -75,7 +75,7 @@ public class DatabaseAdapter {
             String date = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
             int priority = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_PRIORITY));
             int isDone = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_IS_DONE));
-            todoTask = new TodoTask(id,title, text, date, priority, isDone);
+            todoTask = new TodoTask(id,title, text, date, PriorityEnum.fromInt(priority), isDone);
         }
         cursor.close();
         return  todoTask;
@@ -86,7 +86,7 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_TITLE, todoTask.getTitle());
         cv.put(DatabaseHelper.COLUMN_TEXT, todoTask.getText());
         cv.put(DatabaseHelper.COLUMN_DATE, todoTask.getDate());
-        cv.put(DatabaseHelper.COLUMN_PRIORITY, todoTask.getPriority());
+        cv.put(DatabaseHelper.COLUMN_PRIORITY, todoTask.getPriorityValue());
         cv.put(DatabaseHelper.COLUMN_IS_DONE, todoTask.isDone());
 
         return  database.insert(DatabaseHelper.TABLE, null, cv);
@@ -104,7 +104,7 @@ public class DatabaseAdapter {
         cv.put(DatabaseHelper.COLUMN_TITLE, todoTask.getTitle());
         cv.put(DatabaseHelper.COLUMN_TEXT, todoTask.getText());
         cv.put(DatabaseHelper.COLUMN_DATE, todoTask.getDate());
-        cv.put(DatabaseHelper.COLUMN_PRIORITY, todoTask.getPriority());
+        cv.put(DatabaseHelper.COLUMN_PRIORITY, todoTask.getPriority().getValue());
         cv.put(DatabaseHelper.COLUMN_IS_DONE, todoTask.isDone());
 
         return database.update(DatabaseHelper.TABLE, cv, whereClause, null);

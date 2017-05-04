@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 
 import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
 import com.example.ultim.newtodolist.DataBase.DatabaseHelper;
+import com.example.ultim.newtodolist.DataBase.PriorityEnum;
 import com.example.ultim.newtodolist.DataBase.TodoTask;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import static com.example.ultim.newtodolist.DataBase.PriorityEnum.*;
 
 public class EditActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
     EditText mEditTitle;
@@ -34,7 +37,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     RadioButton mediumPriority;
     RadioButton highPriority;
     CheckBox mCheckBoxIsDone;
-    int mPriority = 0;
+    PriorityEnum mPriority = NONE;
     long id = 0;
 
 
@@ -96,13 +99,13 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         switch (checkedId){
             case R.id.radioButtonHight:
-                mPriority = 3;
+                mPriority = MAX;
                 break;
             case R.id.radioButtonMedium:
-                mPriority = 2;
+                mPriority = MEDIUM;
                 break;
             case R.id.radioButtonSmall:
-                mPriority = 1;
+                mPriority = LOW;
                 break;
             default:
                 break;
@@ -126,13 +129,13 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                     mCheckBoxIsDone.setChecked(true);
                 }
                 switch (todoTask.getPriority()) {
-                    case 1:
+                    case LOW:
                         mPriorityGroup.check(smallPriority.getId());
                         break;
-                    case 2:
+                    case MEDIUM:
                         mPriorityGroup.check(mediumPriority.getId());
                         break;
-                    case 3:
+                    case MAX:
                         mPriorityGroup.check(highPriority.getId());
                         break;
                     default:
