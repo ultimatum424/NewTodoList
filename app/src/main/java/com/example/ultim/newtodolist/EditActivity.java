@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 
 import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
 import com.example.ultim.newtodolist.DataBase.DatabaseHelper;
+import com.example.ultim.newtodolist.DataBase.DoneEnum;
 import com.example.ultim.newtodolist.DataBase.PriorityEnum;
 import com.example.ultim.newtodolist.DataBase.TodoTask;
 
@@ -24,6 +25,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.example.ultim.newtodolist.DataBase.DoneEnum.*;
 import static com.example.ultim.newtodolist.DataBase.PriorityEnum.*;
 
 public class EditActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
@@ -123,7 +125,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 mEditTitle.setText(todoTask.getText());
                 mEditText.setText(todoTask.getText());
                 mEditDate.setText(todoTask.getDate());
-                if (todoTask.isDone() == 0) {
+                if (todoTask.isDone() == NO) {
                     mCheckBoxIsDone.setChecked(false);
                 } else {
                     mCheckBoxIsDone.setChecked(true);
@@ -149,11 +151,11 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     void saveChanges(){
-        int isDone;
+        DoneEnum isDone;
         if ( mCheckBoxIsDone.isChecked()){
-            isDone = 1;
+            isDone = YES;
         }else{
-            isDone = 0;
+            isDone = NO;
         }
         TodoTask todoTask = new TodoTask(
                 id,

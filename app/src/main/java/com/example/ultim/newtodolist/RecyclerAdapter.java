@@ -15,12 +15,15 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
+import com.example.ultim.newtodolist.DataBase.DoneEnum;
 import com.example.ultim.newtodolist.DataBase.TodoTask;
 
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
+
+import static com.example.ultim.newtodolist.DataBase.DoneEnum.*;
 
 /**
  * Created by Ultim on 14.04.2017.
@@ -124,7 +127,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                 });
 
                 ((ViewHolder1) holder).mCheckBox.setOnCheckedChangeListener(null);
-                ((ViewHolder1) holder).mCheckBox.setChecked(isDone(object.isDone()));
+                ((ViewHolder1) holder).mCheckBox.setChecked(isDone(object.isDone().getValue()));
                 ((ViewHolder1) holder).mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -196,7 +199,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                     }
                 });
                 ((ViewHolder2) holder).mCheckBox.setOnCheckedChangeListener(null);
-                ((ViewHolder2) holder).mCheckBox.setChecked(isDone(object.isDone()));
+                ((ViewHolder2) holder).mCheckBox.setChecked(isDone(object.isDone().getValue()));
                 ((ViewHolder2) holder).mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -232,11 +235,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
     }
 
     private TodoTask changeDone(TodoTask object){
-        int intDone;
-        if (object.isDone() == 1){
-            intDone = 0;
+        DoneEnum intDone;
+        if (object.isDone() == YES){
+            intDone = NO;
         } else {
-            intDone = 1;
+            intDone = YES;
         }
         TodoTask todoTask = new TodoTask(object.getId(), object.getTitle(), object.getText(),
                 object.getDate(), object.getPriority(), intDone);

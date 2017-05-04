@@ -10,9 +10,9 @@ public class TodoTask {
     private String text;
     private String date;
     private PriorityEnum priority;
-    private int isDone;
+    private DoneEnum isDone;
 
-    public TodoTask(long id, String title, String text, String date, PriorityEnum priority, int isDone) {
+    public TodoTask(long id, String title, String text, String date, PriorityEnum priority, DoneEnum isDone) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -44,11 +44,11 @@ public class TodoTask {
        return priority.ordinal();
     }
 
-    public int isDone() {
+    public DoneEnum isDone() {
         return isDone;
     }
 
-    public void setIsDone(int isDone) {
+    public void setIsDone(DoneEnum isDone) {
         this.isDone = isDone;
     }
 }
