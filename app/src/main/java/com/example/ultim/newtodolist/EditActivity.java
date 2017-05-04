@@ -17,6 +17,7 @@ import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
 import com.example.ultim.newtodolist.DataBase.DatabaseHelper;
 import com.example.ultim.newtodolist.DataBase.TodoTask;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -109,32 +110,38 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     void fillingTodo(){
-        if (id != 0 ){
+        if (id != 0 ) {
             mCheckBoxIsDone.setVisibility(View.VISIBLE);
-            DatabaseAdapter databaseAdapter = new DatabaseAdapter(this);
-            databaseAdapter.open();
-            TodoTask todoTask = databaseAdapter.getTodoTask(id);
-            databaseAdapter.close();
-            mEditTitle.setText(todoTask.getText());
-            mEditText.setText(todoTask.getText());
-            mEditDate.setText(todoTask.getDate());
-            if (todoTask.isDone() == 0){
-                mCheckBoxIsDone.setChecked(false);
-            }else {
-                mCheckBoxIsDone.setChecked(true);
-            }
-            switch (todoTask.getPriority()){
-                case 1:
-                    mPriorityGroup.check(smallPriority.getId());
-                    break;
-                case 2:
-                    mPriorityGroup.check(mediumPriority.getId());
-                    break;
-                case 3:
-                    mPriorityGroup.check(highPriority.getId());
-                    break;
-                default:
-                    break;
+            DatabaseAdapter databaseAdapter = null;
+            try {
+                databaseAdapter = new DatabaseAdapter(this);
+                databaseAdapter.open();
+                TodoTask todoTask = databaseAdapter.getTodoTask(id);
+                mEditTitle.setText(todoTask.getText());
+                mEditText.setText(todoTask.getText());
+                mEditDate.setText(todoTask.getDate());
+                if (todoTask.isDone() == 0) {
+                    mCheckBoxIsDone.setChecked(false);
+                } else {
+                    mCheckBoxIsDone.setChecked(true);
+                }
+                switch (todoTask.getPriority()) {
+                    case 1:
+                        mPriorityGroup.check(smallPriority.getId());
+                        break;
+                    case 2:
+                        mPriorityGroup.check(mediumPriority.getId());
+                        break;
+                    case 3:
+                        mPriorityGroup.check(highPriority.getId());
+                        break;
+                    default:
+                        break;
+                }
+            } finally {
+                if (databaseAdapter != null) {
+                    databaseAdapter.close();
+                }
             }
         }
     }
@@ -152,13 +159,19 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 mEditDate.getText().toString(),
                 mPriority,
                 isDone);
-        DatabaseAdapter databaseAdapter = new DatabaseAdapter(this);
-        databaseAdapter.open();
-        if (id != 0){
-            databaseAdapter.update(todoTask);
-        }else {
-            databaseAdapter.insert(todoTask);
+        DatabaseAdapter databaseAdapter = null;
+        try{
+            databaseAdapter = new DatabaseAdapter(this);
+            databaseAdapter.open();
+            if (id != 0){
+                databaseAdapter.update(todoTask);
+            }else {
+                databaseAdapter.insert(todoTask);
+            }
+        } finally {
+            if (databaseAdapter != null){
+                databaseAdapter.close();
+            }
         }
-        databaseAdapter.close();
     }
 }

@@ -24,10 +24,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <CheckBox
+                android:id="@+id/checkbox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"/>
+
             <TextView
                 android:id="@+id/title_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/checkbox1"
                 android:textAppearance="?android:textAppearanceLarge" />
 
             <TextView
@@ -35,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title_text"
+                android:layout_toRightOf="@id/checkbox1"
                 android:maxLines="2"
                 android:textAppearance="?android:textAppearanceMedium" />
 
@@ -43,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/info_text"
+                android:layout_toRightOf="@id/checkbox1"
                 android:textAppearance="?android:textAppearanceMedium" />
 
         </RelativeLayout>

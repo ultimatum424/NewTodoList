@@ -33,7 +33,7 @@ public class DatabaseAdapter {
     }
 
     private Cursor getAllEntries(){
-        String orderBy =  DatabaseHelper.COLUMN_IS_DONE + " DESC, " + DatabaseHelper.COLUMN_PRIORITY + " DESC, "
+        String orderBy =  DatabaseHelper.COLUMN_IS_DONE + ", " + DatabaseHelper.COLUMN_PRIORITY + " DESC, "
                 + DatabaseHelper.COLUMN_DATE + " DESC";
 
         String[] columns = new String[] {DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_TITLE, DatabaseHelper.COLUMN_TEXT,

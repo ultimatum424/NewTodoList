@@ -45,4 +45,7 @@ public class TodoTask {
         return isDone;
     }
 
+    public void setIsDone(int isDone) {
+        this.isDone = isDone;
+    }
 }

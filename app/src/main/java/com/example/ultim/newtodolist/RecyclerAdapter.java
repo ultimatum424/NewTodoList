@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.ultim.newtodolist.DataBase.DatabaseAdapter;
@@ -17,6 +19,7 @@ import com.example.ultim.newtodolist.DataBase.TodoTask;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,13 +42,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
         TextView mTextTitle;
         TextView mTextDate;
         CardView cardView1;
+        CheckBox mCheckBox;
 
         public ViewHolder1(View itemView) {
             super(itemView);
             mTextText = (TextView) itemView.findViewById(R.id.info_text);
             mTextTitle = (TextView) itemView.findViewById(R.id.title_text);
             mTextDate = (TextView) itemView.findViewById(R.id.date_text);
-            cardView1 = (CardView)itemView.findViewById(R.id.card_view);
+            cardView1 = (CardView) itemView.findViewById(R.id.card_view);
+            mCheckBox = (CheckBox) itemView.findViewById(R.id.checkbox1);
         }
     }
 
@@ -56,6 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
         Button mEditBtn;
         Button mDeleteBtn;
         CardView cardView2;
+        CheckBox mCheckBox;
 
         public ViewHolder2(View itemView) {
             super(itemView);
@@ -65,6 +71,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
             mEditBtn = (Button) itemView.findViewById(R.id.button_edit);
             mDeleteBtn = (Button) itemView.findViewById(R.id.button_delete);
             cardView2 = (CardView) itemView.findViewById(R.id.card_view2);
+            mCheckBox = (CheckBox) itemView.findViewById(R.id.checkBox2);
         }
     }
 
@@ -105,6 +112,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                         notifyItemChanged(position);
                     }
                 });
+
+                ((ViewHolder1) holder).mCheckBox.setOnCheckedChangeListener(null);
+                ((ViewHolder1) holder).mCheckBox.setChecked(isDone(object.isDone()));
+                ((ViewHolder1) holder).mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        DatabaseAdapter adapter = null;
+                        try {
+                            adapter = new DatabaseAdapter(mContext);
+                            adapter.open();
+                            TodoTask newObject = changeDone(object);
+                            adapter.update(newObject);
+                            mListTask = adapter.getTodoTasks();
+                            notifyDataSetChanged();
+                        } finally {
+                            if (adapter != null){
+                                adapter.close();
+                            }
+                        }
+
+                    }
+                });
             }
             else {
                 ((ViewHolder2) holder).mTextTitle.setText(object.getTitle());
@@ -120,14 +149,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                 ((ViewHolder2) holder).mDeleteBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatabaseAdapter adapter = new DatabaseAdapter(mContext);
-                        adapter.open();
-                        adapter.delete(object.getId());
-                        adapter.close();
-                        mSelectPosition = -1;
-                        mListTask.remove(position);
-                        notifyItemRemoved(position);
-                        notifyDataSetChanged();
+                        DatabaseAdapter adapter = null;
+                        try {
+                            adapter = new DatabaseAdapter(mContext);
+                            adapter.open();
+                            adapter.delete(object.getId());
+                            mSelectPosition = -1;
+                            mListTask.remove(position);
+                            notifyItemRemoved(position);
+                            notifyDataSetChanged();
+                        } finally {
+                            if (adapter != null){
+                                adapter.close();
+                            }
+                        }
+
                     }
                 });
                 ((ViewHolder2) holder).mEditBtn.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +175,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
                         notifyItemChanged(position);
                     }
                 });
+                ((ViewHolder2) holder).mCheckBox.setOnCheckedChangeListener(null);
+                ((ViewHolder2) holder).mCheckBox.setChecked(isDone(object.isDone()));
+                ((ViewHolder2) holder).mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        DatabaseAdapter adapter = null;
+                        try{
+                            adapter = new DatabaseAdapter(mContext);
+                            adapter.open();
+                            TodoTask newObject = changeDone(object);
+                            adapter.update(newObject);
+                            mListTask = adapter.getTodoTasks();
+                            mSelectPosition = -1;
+                            notifyDataSetChanged();
+                        } finally {
+                            if (adapter != null){
+                                adapter.close();
+                            }
+                        }
 
+                    }
+                });
             }
         }
     }
@@ -148,5 +205,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         return mListTask.size();
+    }
+
+    private boolean isDone(int value){
+        return value == 1;
+    }
+
+    private TodoTask changeDone(TodoTask object){
+        int intDone;
+        if (object.isDone() == 1){
+            intDone = 0;
+        } else {
+            intDone = 1;
+        }
+        TodoTask todoTask = new TodoTask(object.getId(), object.getTitle(), object.getText(),
+                object.getDate(), object.getPriority(), intDone);
+        return todoTask;
     }
 }

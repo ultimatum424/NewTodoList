@@ -62,6 +62,15 @@
                 android:layout_below="@+id/date_text"
                 android:text="Удалить" />
 
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Выполнено"
+                android:layout_alignBaseline="@+id/button_edit"
+                android:layout_alignBottom="@+id/button_edit"
+                android:layout_centerHorizontal="true" />
+
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
